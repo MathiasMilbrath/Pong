@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://cg15cnh5p3nx0"]
+
+[ext_resource type="Script" path="res://Game.gd" id="1_iv4eh"]
+[ext_resource type="PackedScene" uid="uid://c4hyesvlh0eme" path="res://player.tscn" id="1_l7uyj"]
+[ext_resource type="PackedScene" uid="uid://cykbfk5gjnxyt" path="res://ball.tscn" id="2_lewvl"]
+[ext_resource type="Script" path="res://ball.gd" id="4_0fiji"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_atjok"]
+size = Vector2(1791.09, 130)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_iv4eh")
+
+[node name="Top" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
+position = Vector2(675, -112)
+scale = Vector2(0.957271, 1.75701)
+shape = SubResource("RectangleShape2D_atjok")
+
+[node name="Bottom" type="Area2D" parent="."]
+visible = false
+position = Vector2(3, 151)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
+position = Vector2(685, 565)
+shape = SubResource("RectangleShape2D_atjok")
+
+[node name="Right" type="Area2D" parent="."]
+visible = false
+position = Vector2(847, 950)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+position = Vector2(368, -373)
+rotation = 1.57786
+shape = SubResource("RectangleShape2D_atjok")
+
+[node name="Left" type="Area2D" parent="."]
+visible = false
+position = Vector2(847, 950)
+rotation = 0.00069008
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+position = Vector2(-917.145, -210.367)
+rotation = 1.57786
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_atjok")
+
+[node name="Player" parent="." instance=ExtResource("1_l7uyj")]
+position = Vector2(95, 299)
+
+[node name="Player2" parent="." instance=ExtResource("1_l7uyj")]
+position = Vector2(1066, 298)
+side = "p2"
+
+[node name="Ball" parent="." instance=ExtResource("2_lewvl")]
+position = Vector2(599, 327)
+script = ExtResource("4_0fiji")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 360.0
+offset_top = 47.0
+offset_right = 543.0
+offset_bottom = 184.0
+theme_override_font_sizes/font_size = 100
+text = "0"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 760.0
+offset_top = 41.0
+offset_right = 943.0
+offset_bottom = 178.0
+theme_override_font_sizes/font_size = 100
+text = "0"
+
+[connection signal="body_entered" from="Top" to="." method="_on_top_body_entered"]
+[connection signal="body_entered" from="Bottom" to="." method="_on_bottom_body_entered"]
+[connection signal="body_entered" from="Right" to="." method="_on_right_body_entered"]
+[connection signal="body_exited" from="Right" to="." method="_on_right_body_exited"]
+[connection signal="body_entered" from="Left" to="." method="_on_left_body_entered"]
